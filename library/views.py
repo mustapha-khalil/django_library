@@ -28,18 +28,15 @@ def index(request):
 
 
 def addBook(request):
-    print("adding Book")
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("index")
-
     else:
         form = BookForm()
 
-    context = {"form": form}
-    return render(request, "add_book.html", context)
+    return render(request, "add_book.html", {"form": form})
 
 
 def editBook(request, book_id):
