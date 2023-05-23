@@ -6,5 +6,5 @@ from django.db import models
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    publication_year = models.PositiveBigIntegerField()
+    publication_year = models.DateTimeField("publication year")
     category = models.CharField(max_length=100)
