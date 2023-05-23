@@ -1,0 +1,68 @@
+<!-- add_book.html -->
+
+{% extends 'base.html' %} {% block content %}
+<div class="max-w-md mx-auto mt-10">
+  <h2 class="text-xl font-bold mb-4">Add a Book</h2>
+  <form method="post" action="{% url 'add_book' %}" class="space-y-4">
+    {% csrf_token %} {% for field in form %}
+    <div>
+      <label
+        for="{{ field.id_for_label }}"
+        class="block text-sm font-medium text-gray-700"
+        >{{ field.label }}</label
+      >
+      {% if field.name == 'publication_year' %}
+      <input
+        type="text"
+        name="{{ field.name }}"
+        id="{{ field.id_for_label }}"
+        class="block w-full px-4 py-2 mt-1 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500 datepicker"
+        autocomplete="off"
+      />
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            maxDate: "today",
+          });
+        });
+      </script>
+      {% else %} {{ field }} {% endif %} {% if field.errors %}
+      <p class="text-red-500 text-sm mt-1">{{ field.errors|join:", " }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <button
+      type="submit"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Add Book
+    </button>
+  </form>
+</div>
+
+<style>
+  /* Custom styling for input fields */
+  input[type="text"] {
+    /* Remove default styles */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Add custom styles */
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    margin-top: 5px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+  }
+
+  input[type="text"]:focus {
+    border-color: #4299e1;
+  }
+</style>
+{% endblock %}
