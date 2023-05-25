@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseServerError, JsonResponse
 from .models import Book
 from .forms import BookForm
+from .utils import convertQuerySetToList
 
 # Create your views here.
 
@@ -9,17 +10,7 @@ from .forms import BookForm
 def index(request):
     try:
         books = Book.objects.all()
-        # Convert books queryset to a list of dictionaries
-        books_data = [
-            {
-                "id": book.id,
-                "title": book.title,
-                "author": book.author,
-                "publication_year": book.publication_year,
-                "category": book.category,
-            }
-            for book in books
-        ]
+        books_data = convertQuerySetToList(books)
         return JsonResponse({"books": books_data})
 
     except Exception as e:
