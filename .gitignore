@@ -20,4 +20,4 @@ staticfiles/
 .vscode/
 
 # Dependency directories
-venv/
+myenv/
