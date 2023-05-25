@@ -14,16 +14,30 @@
   </head>
 
   <body>
-    <nav class="flex items-center justify-between bg-gray-900 p-6 px-10">
-      <div class="navbar-left">
-        <h1 class="text-white text-2xl">Library</h1>
-      </div>
-      <div class="navbar-right">
+    <nav class="flex items-center justify-between bg-gray-900 p-4">
+      <div class="text-white font-bold text-xl">Library App</div>
+      <div class="flex gap-4">
         <a
           href="{% url 'add_book' %}"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
           >Add Book</a
         >
+        <form method="GET" action="{% url 'index' %}">
+          <div class="flex items-center justify-center">
+            <input
+              type="text"
+              name="search_query"
+              placeholder="Search..."
+              class="px-3 py-1 rounded-lg focus:outline-none exclude-input"
+            />
+            <button
+              type="submit"
+              class="bg-white text-blue-500 px-4 py-1 rounded-lg ml-2 hover:bg-gray-200"
+            >
+              Search
+            </button>
+          </div>
+        </form>
       </div>
     </nav>
     <div class="px-6 py-6">{% block content %} {% endblock %}</div>
