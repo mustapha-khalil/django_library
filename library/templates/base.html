@@ -14,6 +14,18 @@
   </head>
 
   <body>
+    <nav class="flex items-center justify-between bg-gray-900 p-6 px-10">
+      <div class="navbar-left">
+        <h1 class="text-white text-2xl">Library</h1>
+      </div>
+      <div class="navbar-right">
+        <a
+          href="{% url 'add_book' %}"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >Add Book</a
+        >
+      </div>
+    </nav>
     <div class="px-6 py-6">{% block content %} {% endblock %}</div>
   </body>
 </html>
