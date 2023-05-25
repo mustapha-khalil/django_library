@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseServerError, JsonResponse
 from .models import Book
 from .forms import BookForm
-from .utils import convertQuerySetToList
 
 # Create your views here.
 
@@ -10,8 +9,8 @@ from .utils import convertQuerySetToList
 def index(request):
     try:
         books = Book.objects.all()
-        books_data = convertQuerySetToList(books)
-        return JsonResponse({"books": books_data})
+        # books_data = convertQuerySetToList(books)
+        return render(request, "book_list.html", {"books": books})
 
     except Exception as e:
         error_message = "Something went wrong: " + str(e)
