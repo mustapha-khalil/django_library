@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseServerError
 from .models import Book
 from .forms import BookForm
@@ -8,13 +9,21 @@ from .forms import BookForm
 
 def index(request):
     try:
-        books = Book.objects.all()
-        # books_data = convertQuerySetToList(books)
+        search_query = request.GET.get("search_query", "")
+
+        if search_query:
+            books = Book.objects.filter(
+                Q(title__icontains=search_query)
+                | Q(author__icontains=search_query)
+                | Q(category__icontains=search_query)
+            )
+        else:
+            books = Book.objects.all()
+
         return render(request, "book_list.html", {"books": books})
 
     except Exception as e:
-        error_message = "Something went wrong: " + str(e)
-        return HttpResponseServerError(error_message)
+        return HttpResponseServerError("Something went wrong: " + str(e))
 
 
 def addBook(request):
