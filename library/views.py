@@ -17,17 +17,6 @@ def index(request):
         return HttpResponseServerError(error_message)
 
 
-def deleteBook(request, book_id):
-    try:
-        book = Book.objects.get(id=book_id)
-        book.delete()
-        return redirect("index")
-    except Book.DoesNotExist:
-        return HttpResponseServerError("404: Book not found")
-    except Exception as e:
-        return HttpResponseServerError("Something went wrong: " + str(e))
-
-
 def addBook(request):
     if request.method == "POST":
         form = BookForm(request.POST)
@@ -40,5 +29,29 @@ def addBook(request):
     return render(request, "add_book.html", {"form": form})
 
 
+def deleteBook(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id)
+        book.delete()
+        return redirect("index")
+    except Book.DoesNotExist:
+        return HttpResponseServerError("404: Book not found")
+    except Exception as e:
+        return HttpResponseServerError("Something went wrong: " + str(e))
+
+
 def editBook(request, book_id):
-    return HttpResponse("Your are editing the book %s." % book_id)
+    try:
+        book = Book.objects.get(id=book_id)
+    except Book.DoesNotExist:
+        return HttpResponseServerError("Book does not exist.")
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, "edit_book.html", {"form": form, "book_id": book.id})
