@@ -64,6 +64,12 @@ These instructions will get your project up and running on your local machine.
    python manage.py migrate
    ```
 
+2. (Optional) To populate the database with predefined data, just run the following command
+
+   ```bash
+   python manage.py seed_data
+   ```
+
 ### Usage
 
 1. Start the development server:
