@@ -8,6 +8,17 @@ class Command(BaseCommand):
     help = "Seeds the database with sample data"
 
     def handle(self, *args, **options):
+        """
+        Generates and saves sample data for books in the database.
+
+        Args:
+            *args: Additional command-line arguments.
+            **options: Additional options passed via command-line.
+
+        Returns:
+            None
+        """
+
         # Create 10 books
         for _ in range(10):
             title = get_random_string(length=10)
