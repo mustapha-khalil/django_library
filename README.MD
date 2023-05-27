@@ -78,4 +78,11 @@ These instructions will get your project up and running on your local machine.
    python manage.py runserver
    ```
 
-2. Open a web browser and navigate to http://localhost:8000 to access the application
+2. To run tests, write the following command:
+
+   ```bash
+   python manage.py test
+
+   ```
+
+3. Open a web browser and navigate to http://localhost:8000 to access the application
